@@ -1,6 +1,5 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce_app/common/widgets/custom_snackbar.dart';
+import 'package:ecommerce_app/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce_app/features/auth/repository/auth_repository.dart';
@@ -10,23 +9,23 @@ class AuthController extends GetxController implements GetxService {
   final AuthRepository authRepository;
   AuthController({required this.authRepository});
 
-  final bool _isLoading=false;
+   bool _isLoading=false;
   bool get isLoading => _isLoading;
 
-  final TextEditingController _emailTEController=TextEditingController();
+   TextEditingController _emailTEController=TextEditingController();
   TextEditingController get emailTEController => _emailTEController;
 
-  final TextEditingController _passwordTEController =TextEditingController();
+   TextEditingController _passwordTEController =TextEditingController();
   TextEditingController get passwordTEController => _passwordTEController;
 
-  final TextEditingController _nameTEController=TextEditingController();
+   TextEditingController _nameTEController=TextEditingController();
   TextEditingController get nameTEController => _nameTEController;
 
 
-  File? _pickedImage;
-  File? get pickedImage => _pickedImage;
+  XFile? _pickedImage;
+  XFile? get pickedImage => _pickedImage;
 
-  void setPickedImage(File image){
+  void setPickedImage(XFile image){
     _pickedImage = image;
     update();
   }
@@ -34,7 +33,7 @@ class AuthController extends GetxController implements GetxService {
  Future<void> pickImage(ImageSource imageSource)async{
     final pickedFile= await ImagePicker().pickImage(source: imageSource);
     if(pickedFile != null){
-      _pickedImage=File(pickedFile.path);
+      _pickedImage=XFile(pickedFile.path);
       update();
     }
   }
@@ -69,5 +68,32 @@ class AuthController extends GetxController implements GetxService {
         }
     );
   }
+
+
+  Future<void> getRegister() async{
+    _isLoading=true;
+    update();
+
+    Response response = await authRepository.getRegister({
+      "email": _emailTEController.text.trim(),
+      "password": _passwordTEController.text,
+      "name": _nameTEController.text.trim(),
+
+    },_pickedImage!
+    );
+
+    if(response.statusCode ==200 && response.body['status'] =="success"){
+      _isLoading=false;
+      update();
+      showCustomSnackBar("Register Successfully",isError: false);
+      Get.offAllNamed(RoutesName.login);
+    }else{
+      _isLoading=true;
+      update();
+      showCustomSnackBar('Register failed',isError: true);
+    }
+
+  }
+
 
 }

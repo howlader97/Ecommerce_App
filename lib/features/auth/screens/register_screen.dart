@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecommerce_app/features/auth/controller/auth_controller.dart';
 import 'package:ecommerce_app/features/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
@@ -26,6 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(480),
+      resizeToAvoidBottomInset: true,
       body: Container(
         padding: EdgeInsets.symmetric(
           horizontal: Dimensions.fontSizeExtraLarge,
@@ -43,15 +46,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey.shade200,
-                    backgroundImage: authController.pickedImage != null
-                    ? FileImage(authController.pickedImage!):null,
-                    child: authController.pickedImage == null
-                    ? IconButton(onPressed: (){
+                  InkWell(
+                    onTap: (){
                       authController.chooseImageForm();
-                    }, icon:const Icon(Icons.camera_alt) ):null
+                    },
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey.shade200,
+                      backgroundImage: authController.pickedImage != null
+                      ? FileImage(File(authController.pickedImage!.path)):null,
+                      child: authController.pickedImage == null
+                      ? IconButton(onPressed: (){
+                        authController.chooseImageForm();
+                      }, icon:const Icon(Icons.camera_alt) ):null
+                    ),
                   ),
 
 
@@ -86,11 +94,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                  CustomButton(
-                    buttonText: 'Login',
+                authController.isLoading?const CircularProgressIndicator():  CustomButton(
+                    buttonText: 'Register',
                     onPressed: () {
-                      if (_globalKey.currentState!.validate()) {}
-                    },
+                      if (_globalKey.currentState!.validate()) {
+                        authController.getRegister();
+                      }
+                    }
                   ),
                   const SizedBox(height: Dimensions.paddingSizeExtraLarge),
                   Row(

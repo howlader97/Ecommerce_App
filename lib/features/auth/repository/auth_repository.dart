@@ -1,21 +1,17 @@
 import 'package:get/get.dart';
 import 'package:ecommerce_app/data/api/api_client.dart';
 import 'package:ecommerce_app/utils/app_constants.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
+
   AuthRepository({required this.apiClient, required this.sharedPreferences});
 
-  Future<Response> login(Map<String, dynamic> data) async {
-    return apiClient.postData(AppConstants.loginUri, data);
-  }
 
-  Future<Response> register(Map<String, dynamic> data) async {
-    return apiClient.postData(AppConstants.loginUri, data);
-  }
-
+/*
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);
@@ -30,5 +26,15 @@ class AuthRepository {
     await sharedPreferences.remove(AppConstants.token);
     apiClient.token = '';
   }
+*/
+
+
+
+
+  Future<Response> getRegister( Map<String,String> body, XFile image) async {
+    return await apiClient.postMultipartData(AppConstants.registerUri, body,[
+      MultipartBody('photo', image)]);
+  }
+
 
 }
