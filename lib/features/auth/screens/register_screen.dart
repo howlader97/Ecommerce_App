@@ -8,6 +8,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
@@ -46,23 +47,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
+
                   InkWell(
                     onTap: (){
                       authController.chooseImageForm();
                     },
                     child: CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage: authController.pickedImage != null
-                      ? FileImage(File(authController.pickedImage!.path)):null,
-                      child: authController.pickedImage == null
-                      ? IconButton(onPressed: (){
-                        authController.chooseImageForm();
-                      }, icon:const Icon(Icons.camera_alt) ):null
+                      radius: 60,
+                      backgroundColor: Colors.grey[200],
+                       backgroundImage: authController.pickedImage != null
+                       ?  FileImage(File(authController.pickedImage!.path)):null,
+                      child:authController.pickedImage==null
+                          ?IconButton(
+                        icon:  const Icon(Icons.camera_alt_outlined),
+                        onPressed: (){
+                          authController.chooseImageForm();
+                        },
+                      ):null
                     ),
                   ),
-
-
+                  const SizedBox(height: 7,),
                   CustomTextField(
                     prefixIcon: TablerIcons.user,
                     validator: (value) {
@@ -94,11 +98,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                authController.isLoading?const CircularProgressIndicator():  CustomButton(
+                  CustomButton(
                     buttonText: 'Register',
                     onPressed: () {
                       if (_globalKey.currentState!.validate()) {
-                        authController.getRegister();
+
                       }
                     }
                   ),
