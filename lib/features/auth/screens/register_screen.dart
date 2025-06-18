@@ -6,13 +6,9 @@ import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
-
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -22,11 +18,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final GlobalKey<FormState> _globalKey=GlobalKey<FormState>();
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(480),
       resizeToAvoidBottomInset: true,
@@ -50,34 +45,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   InkWell(
                     onTap: (){
-                      authController.chooseImageForm();
+                      authController.chooseImageFrom();
                     },
                     child: CircleAvatar(
-                      radius: 60,
+                      radius: 80,
                       backgroundColor: Colors.grey[200],
-                       backgroundImage: authController.pickedImage != null
-                       ?  FileImage(File(authController.pickedImage!.path)):null,
-                      child:authController.pickedImage==null
-                          ?IconButton(
-                        icon:  const Icon(Icons.camera_alt_outlined),
-                        onPressed: (){
-                          authController.chooseImageForm();
+                      backgroundImage:
+                          authController.pickedImage != null
+                              ? FileImage(File(authController.pickedImage!.path))
+                              : null,
+                      child: authController.pickedImage == null
+                      ?IconButton(
+                        onPressed: () {
+                          authController.chooseImageFrom();
                         },
-                      ):null
+                        icon: Icon(Icons.camera_alt_outlined),
+                      ): null,
                     ),
                   ),
-                  const SizedBox(height: 7,),
+
+                  const SizedBox(height: 7),
                   CustomTextField(
+                    controller: authController.nameTEController,
                     prefixIcon: TablerIcons.user,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter your email';
+                        return 'Enter your name';
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
                   CustomTextField(
+                    controller: authController.emailTEController,
                     prefixIcon: TablerIcons.mail,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -88,6 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
                   CustomTextField(
+                    controller: authController.passwordTEController,
                     prefixIcon: TablerIcons.lock,
                     isPassword: true,
                     validator: (value) {
@@ -98,21 +99,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                  CustomButton(
-                    buttonText: 'Register',
-                    onPressed: () {
-                      if (_globalKey.currentState!.validate()) {
 
-                      }
-                    }
-                  ),
+                  authController.isLoading
+                      ? CircularProgressIndicator()
+                      : CustomButton(
+                        buttonText: "Register",
+                        onPressed: () {
+                          if (_globalKey.currentState!.validate()) {
+                            authController.getRegister();
+                          }
+                        },
+                      ),
+
                   const SizedBox(height: Dimensions.paddingSizeExtraLarge),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Have an account!",
-                        style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500),
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {

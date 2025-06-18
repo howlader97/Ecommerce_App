@@ -7,8 +7,8 @@ class AppConstants  {
 
   static const String baseUrl = 'https://beshibuy.com/api/';
   static const String token = '13a95b5efb8a4d708191f4072ba75e0e';
-  static const String loginUri = '/auth/login';
-  static const String registerUri = 'custom-register';
+  static const String loginUri = 'custom-login';
+  static const String registerUri ='custom-register';
   static const String readyToMovePropertiesUri = '/properties/common/properties';
 
 

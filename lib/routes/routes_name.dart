@@ -4,12 +4,13 @@ class RoutesName {
   static const login = '/login';
   static const register = '/register';
   static const home = '/home';
-  static const product = '/home';
+  static const dashboard = '/dashboard';
 
   static String getSplashScreen() => splash;
   static String getLoginScreen() => login;
   static String getRegisterScreen() => register;
   static String getHomeScreen() => home;
-  static String getProductScreen() => product;
+  static String getDashboardScreen() => dashboard;
+
 
 }

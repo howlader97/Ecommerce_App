@@ -28,9 +28,14 @@ class AuthRepository {
   }
 */
 
+  Future<Response> getRegister(Map<String,String> body, XFile? image)async {
+    return await apiClient.postMultipartData(AppConstants.registerUri, body, [
+      MultipartBody('image', image)
+    ]);
+  }
 
-
-
-
+  Future<Response> getLogin(Map<String,String> body)async{
+    return await apiClient.postData(AppConstants.loginUri, body);
+  }
 
 }

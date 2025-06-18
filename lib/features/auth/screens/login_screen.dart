@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
                   CustomTextField(
+                    controller: authController.emailTEController,
                     prefixIcon: TablerIcons.mail,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -50,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
                   CustomTextField(
+                    controller: authController.passwordTEController,
                     prefixIcon: TablerIcons.lock,
                     isPassword: true,
                     validator: (value) {
@@ -60,10 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                  CustomButton(
+                 authController.isLoading?CircularProgressIndicator(): CustomButton(
                     buttonText: 'Login',
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        authController.getLogin();
+                      }
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeExtraLarge),
