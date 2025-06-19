@@ -128,4 +128,6 @@ class AuthController extends GetxController implements GetxService {
     }
   }
 
+
+
 }

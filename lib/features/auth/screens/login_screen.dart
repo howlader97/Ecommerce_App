@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
-                 authController.isLoading?CircularProgressIndicator(): CustomButton(
+                 authController.isLoading?const CircularProgressIndicator(): CustomButton(
                     buttonText: 'Login',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

@@ -10,6 +10,7 @@ class AppConstants  {
   static const String loginUri = 'custom-login';
   static const String registerUri ='custom-register';
   static const String readyToMovePropertiesUri = '/properties/common/properties';
+  static const String sliderUrl = 'get-home-slider-data';
 
 
 }

@@ -28,5 +28,6 @@ class Images {
   static String ic_home_icon = 'assets/images/ic_home.svg';
   static String placeholder = 'assets/images/placeholder.jpg';
   static String iconLeft = 'assets/images/icon_left.png';
+  static String splash = 'assets/images/splash.webp';
 
 }

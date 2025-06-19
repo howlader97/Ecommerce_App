@@ -17,6 +17,10 @@ class HomeRepository {
     return await apiClient.getData("top-headlines?sources=bbc-news&apiKey=${AppConstants.token}");
   }*/
 
+  Future<Response> getSliderData()async{
+    return await apiClient.getData(AppConstants.sliderUrl);
+  }
+
 
 
 

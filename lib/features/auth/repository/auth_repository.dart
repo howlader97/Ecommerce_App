@@ -11,22 +11,24 @@ class AuthRepository {
   AuthRepository({required this.apiClient, required this.sharedPreferences});
 
 
+
 /*
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);
-    return await sharedPreferences.setString(AppConstants.token, token);
+    return await sharedPreferences.setString("token", token);
   }
 
-  bool isLoggedIn() {
-    return sharedPreferences.containsKey(AppConstants.token);
-  }
+ bool isLoggedIn(){
+   return sharedPreferences.containsKey("token");
+ }
 
   Future<void> removeToken() async {
     await sharedPreferences.remove(AppConstants.token);
     apiClient.token = '';
   }
 */
+
 
   Future<Response> getRegister(Map<String,String> body, XFile? image)async {
     return await apiClient.postMultipartData(AppConstants.registerUri, body, [

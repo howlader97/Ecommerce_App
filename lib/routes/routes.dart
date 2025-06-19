@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/features/home/screens/dashboard_screen.dart';
+import 'package:ecommerce_app/features/home/screens/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce_app/features/auth/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/screens/register_screen.dart';
@@ -21,6 +22,11 @@ class AppRoutes {
     GetPage(
       name: RoutesName.dashboard,
       page: () => const DashboardScreen(),
+    ),
+
+    GetPage(
+      name: RoutesName.splash,
+      page: () => const SplashScreen(),
     ),
 
 

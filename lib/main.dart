@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary).copyWith(),
         useMaterial3: true,
       ),
-      initialRoute: RoutesName.login,
+      initialRoute: RoutesName.splash,
 
       getPages: AppRoutes.appRoutes(),
       defaultTransition: Transition.fadeIn,
