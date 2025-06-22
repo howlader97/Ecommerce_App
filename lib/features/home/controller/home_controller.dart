@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/home/model/category_model.dart';
 import 'package:ecommerce_app/features/home/model/slider_model.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce_app/features/home/repository/home_repository.dart';
@@ -31,6 +32,33 @@ class HomeController extends GetxController implements GetxService {
       update();
     }
 
+  }
+//get categoryData
+
+  List<CategoryModel> _categoryList = [];
+  List<CategoryModel> get categoryList => _categoryList;
+
+  Future<void> getCategoryData() async{
+    isLoading=false;
+    update();
+    Response response=await homeRepository.getCategoryData();
+    if(response.statusCode == 200){
+      for(var i in response.body){
+        _categoryList.add(CategoryModel.fromJson(i));
+        isLoading=true;
+        update();
+      }
+    }else{
+      isLoading=true;
+      update();
+    }
+  }
+
+  @override
+  void onInit() {
+    getSliderData();
+    getCategoryData();
+    super.onInit();
   }
 
 

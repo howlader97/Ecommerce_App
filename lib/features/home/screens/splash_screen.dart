@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_){
           Future.delayed(Duration(seconds: 2), () {
-            Get.find<HomeController>().getSliderData();
+            Get.find<HomeController>();
             Get.off(LoginScreen());
           });
 

@@ -21,7 +21,9 @@ class HomeRepository {
     return await apiClient.getData(AppConstants.sliderUrl);
   }
 
-
+Future<Response> getCategoryData()async{
+    return await apiClient.getData(AppConstants.categoryUrl);
+}
 
 
 }
