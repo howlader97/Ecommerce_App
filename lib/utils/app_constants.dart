@@ -13,6 +13,7 @@ class AppConstants  {
   static const String readyToMovePropertiesUri = '/properties/common/properties';
   static const String sliderUrl = 'get-home-slider-data';
   static const String categoryUrl = 'get-categories';
+  static const String categoryWiseProductUrl = 'cat-wise-products/';
 
 
 }
