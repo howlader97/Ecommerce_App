@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/common/widgets/carosel_slider.dart';
+import 'package:ecommerce_app/common/widgets/custom_image.dart';
 import 'package:ecommerce_app/features/home/controller/home_controller.dart';
 import 'package:ecommerce_app/utils/app_color.dart';
+import 'package:ecommerce_app/utils/app_constants.dart';
 import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +30,34 @@ class HomeScreen extends StatelessWidget {
                           .toList(),
                     ),
                     Text('All data',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    const SizedBox(height: 4,),
+                    SizedBox(height: 270,
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.73
+                        ),
+                      //  itemCount: homeController.categoryList.length,
+                        itemCount: homeController.categoryList.length,
+                        itemBuilder:(context,index){
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                            Container(
+                              width: 250,
+                              height: 90,
+                              child: Image.network("${AppConstants.imageUrl}${homeController.categoryList[index].image}",fit: BoxFit.cover,),
+
+                            ),
+                              FittedBox(child: Text("${homeController.categoryList[index].name}",style: const TextStyle(fontSize: 12),maxLines: 1,)),
+                            ],
+
+                          );
+                        }),
+                    )
                   ],
                 );
               }
