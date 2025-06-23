@@ -67,7 +67,42 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             }),
-                        )
+                        ),
+                        const SizedBox(height: 6,),
+                        Text('All Products',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                        const SizedBox(height: 6,),
+                        GridView.builder(
+                          shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: .5,
+                                childAspectRatio: 0.73
+                            ),
+                            //  itemCount: homeController.categoryList.length,
+                            itemCount: productController.productList.length,
+                            itemBuilder:(context,index){
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      width: 250,
+                                      height: 90,
+                                      child: Image.network("${AppConstants.imageUrl}${productController.productList[index].mainImage}",fit: BoxFit.cover,),
+
+                                    ),
+                                  ),
+                                  Text("${productController.productList[index].name}",style: const TextStyle(fontSize: 12),maxLines: 1,),
+                                  Text("${productController.productList[index].sellPrice}",style: const TextStyle(fontSize: 12),maxLines: 1,),
+                                ],
+
+                              );
+                            }),
+
+
                       ],
                     );
                   }

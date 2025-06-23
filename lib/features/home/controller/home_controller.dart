@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/features/home/model/category_model.dart';
 import 'package:ecommerce_app/features/home/model/slider_model.dart';
+import 'package:ecommerce_app/features/product/controller/product_controller.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce_app/features/home/repository/home_repository.dart';
 
@@ -58,6 +59,7 @@ class HomeController extends GetxController implements GetxService {
   void onInit() {
     getSliderData();
     getCategoryData();
+    Get.find<ProductController>().getAllProducts();
     super.onInit();
   }
 

@@ -12,5 +12,8 @@ class ProductRepository{
     return await apiClient.getData(AppConstants.categoryWiseProductUrl+categoryId);
   }
 
+  Future<Response> getAllProduct() async{
+    return await apiClient.getData(AppConstants.allProductUrl);
+  }
 
 }

@@ -1,6 +1,7 @@
 
 
 import 'package:ecommerce_app/common/widgets/custom_snackbar.dart';
+import 'package:ecommerce_app/features/product/model/category_product_model.dart';
 import 'package:ecommerce_app/features/product/model/product_model.dart';
 import 'package:ecommerce_app/features/product/repository/product_repository.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
@@ -16,8 +17,8 @@ class ProductController extends GetxController implements GetxService {
   bool isLoading=false;
 
 
-  List<ProductModel> _categoryProductList = [];
-  List<ProductModel> get categoryProductList => _categoryProductList;
+  List<CategoryProductModel> _categoryProductList = [];
+  List<CategoryProductModel> get categoryProductList => _categoryProductList;
 
   Future<void> getCategoryWiseProduct(String categoryId) async{
     isLoading=true;
@@ -31,11 +32,35 @@ class ProductController extends GetxController implements GetxService {
       isLoading=false;
       update();
       for(var i in response.body["products"]){
-        _categoryProductList.add(ProductModel.fromJson(i));
+        _categoryProductList.add(CategoryProductModel.fromJson(i));
       }
     }else{
       isLoading=false;
       update();
     }
   }
+
+
+
+
+  List<ProductModel> _productList = [];
+  List<ProductModel> get productList => _productList;
+
+  Future<void> getAllProducts() async{
+    isLoading=true;
+    update();
+    Response response = await productRepository.getAllProduct();
+    if(response.statusCode ==200){
+      for(var i in response.body){
+        _productList.add(ProductModel.fromJson(i));
+        isLoading=false;
+        update();
+      }
+    }else{
+      isLoading=false;
+      update();
+    }
+  }
+
+
 }

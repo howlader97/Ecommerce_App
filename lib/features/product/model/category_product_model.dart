@@ -1,4 +1,4 @@
-class ProductModel {
+class CategoryProductModel {
   int? id;
   String? categoryId;
   String? subCategoryId;
@@ -8,8 +8,8 @@ class ProductModel {
   String? name;
   String? slug;
   String? code;
-  Null? model;
-  String? origin;
+  String? model;
+  Null? origin;
   Null? weight;
   Null? serialImei;
   String? shortDescription;
@@ -28,10 +28,8 @@ class ProductModel {
   String? createdAt;
   String? updatedAt;
   Category? category;
-  SubCategory? subCategory;
-  Brand? brand;
 
-  ProductModel(
+  CategoryProductModel(
       {this.id,
         this.categoryId,
         this.subCategoryId,
@@ -60,11 +58,9 @@ class ProductModel {
         this.deletedAt,
         this.createdAt,
         this.updatedAt,
-        this.category,
-        this.subCategory,
-        this.brand});
+        this.category});
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
+  CategoryProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryId = json['category_id'];
     subCategoryId = json['sub_category_id'];
@@ -94,12 +90,8 @@ class ProductModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     category = json['category'] != null
-        ? Category.fromJson(json['category'])
+        ? new Category.fromJson(json['category'])
         : null;
-    subCategory = json['sub_category'] != null
-        ? SubCategory.fromJson(json['sub_category'])
-        : null;
-    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -134,12 +126,6 @@ class ProductModel {
     data['updated_at'] = updatedAt;
     if (category != null) {
       data['category'] = category!.toJson();
-    }
-    if (subCategory != null) {
-      data['sub_category'] = subCategory!.toJson();
-    }
-    if (brand != null) {
-      data['brand'] = brand!.toJson();
     }
     return data;
   }
@@ -199,112 +185,6 @@ class Category {
     data['cat_code'] = catCode;
     data['cat_level'] = catLevel;
     data['serial'] = serial;
-    data['status'] = status;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    return data;
-  }
-}
-
-class SubCategory {
-  int? id;
-  String? name;
-  String? slug;
-  Null? icon;
-  Null? note;
-  String? image;
-  String? catCode;
-  String? catLevel;
-  Null? serial;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
-
-  SubCategory(
-      {this.id,
-        this.name,
-        this.slug,
-        this.icon,
-        this.note,
-        this.image,
-        this.catCode,
-        this.catLevel,
-        this.serial,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
-
-  SubCategory.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    slug = json['slug'];
-    icon = json['icon'];
-    note = json['note'];
-    image = json['image'];
-    catCode = json['cat_code'];
-    catLevel = json['cat_level'];
-    serial = json['serial'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['slug'] = slug;
-    data['icon'] = icon;
-    data['note'] = note;
-    data['image'] = image;
-    data['cat_code'] = catCode;
-    data['cat_level'] = catLevel;
-    data['serial'] = serial;
-    data['status'] = status;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    return data;
-  }
-}
-
-class Brand {
-  int? id;
-  String? categoryId;
-  String? name;
-  String? slug;
-  String? image;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
-
-  Brand(
-      {this.id,
-        this.categoryId,
-        this.name,
-        this.slug,
-        this.image,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
-
-  Brand.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    categoryId = json['category_id'];
-    name = json['name'];
-    slug = json['slug'];
-    image = json['image'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['category_id'] = categoryId;
-    data['name'] = name;
-    data['slug'] = slug;
-    data['image'] = image;
     data['status'] = status;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;

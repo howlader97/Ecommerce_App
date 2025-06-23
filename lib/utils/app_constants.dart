@@ -14,6 +14,7 @@ class AppConstants  {
   static const String sliderUrl = 'get-home-slider-data';
   static const String categoryUrl = 'get-categories';
   static const String categoryWiseProductUrl = 'cat-wise-products/';
+  static const String allProductUrl = 'get-all-products';
 
 
 }
