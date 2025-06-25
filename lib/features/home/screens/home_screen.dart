@@ -1,14 +1,12 @@
 import 'package:ecommerce_app/common/widgets/carosel_slider.dart';
-import 'package:ecommerce_app/common/widgets/custom_image.dart';
 import 'package:ecommerce_app/features/home/controller/home_controller.dart';
 import 'package:ecommerce_app/features/product/controller/product_controller.dart';
 import 'package:ecommerce_app/features/product/screens/category_wise_product_screen.dart';
+import 'package:ecommerce_app/features/product/screens/product_details_screen.dart';
 import 'package:ecommerce_app/utils/app_color.dart';
 import 'package:ecommerce_app/utils/app_constants.dart';
-import 'package:ecommerce_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 class HomeScreen extends StatelessWidget {
  HomeScreen({super.key});
@@ -75,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                           shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: .5,
@@ -84,21 +82,26 @@ class HomeScreen extends StatelessWidget {
                             //  itemCount: homeController.categoryList.length,
                             itemCount: productController.productList.length,
                             itemBuilder:(context,index){
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      width: 250,
-                                      height: 90,
-                                      child: Image.network("${AppConstants.imageUrl}${productController.productList[index].mainImage}",fit: BoxFit.cover,),
+                              return InkWell(
+                                onTap: (){
+                                  Get.to(ProductDetailsScreen(productModel: productController.productList[index]));
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: 250,
+                                        height: 90,
+                                        child: Image.network("${AppConstants.imageUrl}${productController.productList[index].mainImage}",fit: BoxFit.cover,),
 
+                                      ),
                                     ),
-                                  ),
-                                  Text("${productController.productList[index].name}",style: const TextStyle(fontSize: 12),maxLines: 1,),
-                                  Text("${productController.productList[index].sellPrice}",style: const TextStyle(fontSize: 12),maxLines: 1,),
-                                ],
+                                    Text("${productController.productList[index].name}",style: const TextStyle(fontSize: 12),maxLines: 1,),
+                                    Text("${productController.productList[index].sellPrice}",style: const TextStyle(fontSize: 12),maxLines: 1,),
+                                  ],
 
+                                ),
                               );
                             }),
 
