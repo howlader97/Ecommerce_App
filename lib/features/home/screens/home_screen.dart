@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
- HomeScreen({super.key});
+ const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(
+      appBar: AppBar(title: const Center(
         child: Text('Ecommerce',style: TextStyle(color: AppColors.primary),),
       ),),
       body: Container(
@@ -31,12 +31,12 @@ class HomeScreen extends StatelessWidget {
                           imageUrls: homeController.sliderModel!.sliders!.map((index) => index.image!)
                               .toList(),
                         ),
-                        Text('All data',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                        const Text('All data',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
                         const SizedBox(height: 4,),
                         SizedBox(height: 270,
                         child: GridView.builder(
                           scrollDirection: Axis.horizontal,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
@@ -67,11 +67,11 @@ class HomeScreen extends StatelessWidget {
                             }),
                         ),
                         const SizedBox(height: 6,),
-                        Text('All Products',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                        const Text('All Products',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
                         const SizedBox(height: 6,),
                         GridView.builder(
                           shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                      child: Container(
+                                      child: SizedBox(
                                         width: 250,
                                         height: 90,
                                         child: Image.network("${AppConstants.imageUrl}${productController.productList[index].mainImage}",fit: BoxFit.cover,),
@@ -99,13 +99,12 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Text("${productController.productList[index].name}",style: const TextStyle(fontSize: 12),maxLines: 1,),
                                     Text("${productController.productList[index].sellPrice}",style: const TextStyle(fontSize: 12),maxLines: 1,),
+
                                   ],
 
                                 ),
                               );
                             }),
-
-
                       ],
                     );
                   }
