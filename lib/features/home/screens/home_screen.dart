@@ -28,13 +28,14 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         homeController.sliderModel==null?const SizedBox(child: Text('nothing is here'),): ProductImageCarousel(
-                          imageUrls: homeController.sliderModel!.sliders!.map((index) => index.image!)
+                          imageUrls: homeController.sliderModel!.sliders!.map((index) =>"${AppConstants.imageUrl}${index.image!}")
                               .toList(),
                         ),
                         const Text('All data',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
                         const SizedBox(height: 4,),
                         SizedBox(height: 270,
                         child: GridView.builder(
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,

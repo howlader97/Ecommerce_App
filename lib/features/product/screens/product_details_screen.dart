@@ -1,4 +1,7 @@
 import 'package:ecommerce_app/common/widgets/custom_button.dart';
+import 'package:ecommerce_app/common/widgets/custom_snackbar.dart';
+import 'package:ecommerce_app/features/cart/dbHelper/database_helper.dart';
+import 'package:ecommerce_app/features/cart/model/cart_model.dart';
 import 'package:ecommerce_app/features/product/model/product_model.dart';
 import 'package:ecommerce_app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +110,18 @@ class ProductDetailsScreen extends StatelessWidget {
                     color: Colors.greenAccent,), ),
                   CustomButton(
                     onPressed: (){
-
+                      DatabaseHelper().insertCartItem(
+                        CartItem(
+                            id: productModel.id!,
+                            name: productModel.name!,
+                            image: productModel.mainImage!,
+                            sizeId: 12,
+                            colorId: 10,
+                            quantity: 1,
+                            price: productModel.sellPrice!.toDouble())
+                      ).then((v){
+                        showCustomSnackBar("Item added to cart",isError: false);
+                      });
                     },
                       buttonText: "Add to cart")
 

@@ -1,12 +1,15 @@
 
 
 import 'package:ecommerce_app/common/widgets/custom_snackbar.dart';
+import 'package:ecommerce_app/features/cart/model/cart_model.dart';
 import 'package:ecommerce_app/features/product/model/category_product_model.dart';
 import 'package:ecommerce_app/features/product/model/product_model.dart';
 import 'package:ecommerce_app/features/product/repository/product_repository.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+import '../../cart/dbHelper/database_helper.dart';
 
 class ProductController extends GetxController implements GetxService {
   final ProductRepository productRepository;
@@ -59,6 +62,43 @@ class ProductController extends GetxController implements GetxService {
     }else{
       isLoading=false;
       update();
+    }
+  }
+
+
+  List<CartItem> _cartItems=[];
+  List<CartItem> get cartItems => _cartItems;
+
+  getAllCartItems() async{
+    _cartItems=await DatabaseHelper().getCartItems();
+    update();
+  }
+
+  double getTotalPrice() {
+    double totalPrice = 0.0;
+    for (var item in _cartItems) {
+      totalPrice += item.price * item.quantity;
+    }
+    return totalPrice;
+
+  }
+
+
+  void increaseQuantity(CartItem item)async{
+    item.quantity++;
+    await DatabaseHelper().updateCartItem(item);
+    getAllCartItems();
+    getTotalPrice();
+  }
+
+  void decreaseQuantity(CartItem item) async {
+    if (item.quantity > 1) {
+      item.quantity--;
+      await DatabaseHelper().updateCartItem(item);
+      getAllCartItems();
+      getTotalPrice();
+    } else {
+      showCustomSnackBar("Quantity cannot be less than 1", isError: true);
     }
   }
 
