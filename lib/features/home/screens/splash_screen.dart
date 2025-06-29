@@ -17,13 +17,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_){
-          Future.delayed(Duration(seconds: 2), () {
-            Get.find<HomeController>();
-            Get.off(LoginScreen());
-          });
 
-      });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bool value= Get.find<AuthController>().isLoginUser();
+      if(value==true){
+        Future.delayed(Duration(seconds: 2), () {
+          Get.find<HomeController>();
+          Get.offAll(DashboardScreen());
+        });
+      }else{
+        Get.offAll(LoginScreen());
+      }
+    });
+
 
 
     super.initState();

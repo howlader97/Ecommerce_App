@@ -129,5 +129,17 @@ class AuthController extends GetxController implements GetxService {
   }
 
 
+  isLoginUser() {
+    return    authRepository.isLoggedIn();
+  }
+
+
+  void clearController(){
+    _emailTEController.clear();
+    _passwordTEController.clear();
+  }
+
+
+
 
 }

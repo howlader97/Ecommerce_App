@@ -12,7 +12,7 @@ class AuthRepository {
 
 
 
-/*
+
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);
@@ -27,7 +27,7 @@ class AuthRepository {
     await sharedPreferences.remove(AppConstants.token);
     apiClient.token = '';
   }
-*/
+
 
 
   Future<Response> getRegister(Map<String,String> body, XFile? image)async {
