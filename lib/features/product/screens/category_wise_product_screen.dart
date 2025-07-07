@@ -22,7 +22,7 @@ class _CategoryWiseProductScreenState extends State<CategoryWiseProductScreen> {
           builder: (productController) {
             return Column(
                 children: [
-                 productController.isLoading?const Center(child: CircularProgressIndicator()):productController.categoryProductList.isEmpty?const Center(child: Text('no product found')):
+                 productController.isLoadingMore?const Center(child: CircularProgressIndicator()):productController.categoryProductList.isEmpty?const Center(child: Text('no product found')):
                  GridView.builder(
                     shrinkWrap: true,
                       scrollDirection: Axis.vertical,
