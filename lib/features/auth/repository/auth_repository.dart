@@ -40,4 +40,9 @@ class AuthRepository {
     return await apiClient.postData(AppConstants.loginUri, body);
   }
 
+  Future<Response> getProfileDetails()async{
+    return await apiClient.getData(AppConstants.profileDetailsUri );
+  }
+
+
 }

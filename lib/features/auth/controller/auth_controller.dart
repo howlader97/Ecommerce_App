@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/common/widgets/custom_snackbar.dart';
+import 'package:ecommerce_app/features/auth/model/profile_model.dart';
 import 'package:ecommerce_app/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,6 +118,7 @@ class AuthController extends GetxController implements GetxService {
 
     if(response.statusCode == 200 ){
       _isLoading = false;
+      saveUserToken(response.body["auth_token"]);
       update();
       showCustomSnackBar("${response.body["msg"]}", isError: false);
 
@@ -130,13 +132,50 @@ class AuthController extends GetxController implements GetxService {
 
 
   isLoginUser() {
-    return    authRepository.isLoggedIn();
+    return  authRepository.isLoggedIn();
+  }
+
+  saveUserToken(String token)async{
+    authRepository.saveUserToken(token);
   }
 
 
   void clearController(){
     _emailTEController.clear();
     _passwordTEController.clear();
+  }
+
+
+
+  ProfileModel ?_profileModel;
+  ProfileModel ?get profileModel => _profileModel;
+
+
+  Future<void> getUserDetails()async{
+    _isLoading=true;
+    update();
+
+    Response response =await authRepository.getProfileDetails();
+
+    if(response.statusCode==200){
+      _profileModel=ProfileModel.fromJson(response.body);
+
+      _isLoading=false;
+      update();
+    }else{
+      _isLoading=false;
+      update();
+    }
+
+  }
+
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    getUserDetails();
+    super.onInit();
   }
 
 
